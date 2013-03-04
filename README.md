@@ -1,7 +1,7 @@
 YouTubeEndPointRedirect
 =======================
 
-「YouTube動画の再生後にリダイレクトさせる仕組み （IFrameプレーヤーAPI（JavaScript））」
+「YouTube動画の再生終了後にリダイレクトで別のページに移動させる仕組み（IFrameプレーヤーAPI（JavaScript））」
 
 &lt;iframe&gt;タグの埋め込みコードをつかったHTML5形式の動画プレーヤーです。
 
