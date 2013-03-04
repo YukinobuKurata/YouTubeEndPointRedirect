@@ -13,7 +13,7 @@ http://wisdommingle.com
 
 Copyright (c) 2013 Yukinobu Kurata<br />
 Released under the MIT license<br />
-https://github.com/YukinobuKurata/YouTubeUnstoppablePlayer/blob/master/MIT-LICENSE.txt
+https://github.com/YukinobuKurata/YouTubeEndPointRedirect/blob/master/MIT-LICENSE.txt
 
 MITライセンスについて<br />
 http://wisdommingle.com/mit-license/
