@@ -1,4 +1,5 @@
-<html lang="ja" xml:lang="ja">
+<!DOCTYPE html>
+<html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>YouTube動画の再生終了後にリダイレクトで別のページに自動的に移動させる仕組み（IFrameプレーヤーAPI（JavaScript））</title>
@@ -6,17 +7,17 @@
 	<script type="text/javascript">
 		/*
 		* 解説ページ
-		* http://wisdommingle.com/youtube-iframe-api-player-video-end-point-redirect/
+		* https://wisdommingle.com/youtube-iframe-api-player-video-end-point-redirect/
 		* 
 		* 倉田幸暢(Yukinobu Kurata)
-		* http://wisdommingle.com
+		* https://wisdommingle.com
 		* 
 		* Copyright (c) 2013 Yukinobu Kurata
 		* Released under the MIT license
 		* https://github.com/YukinobuKurata/YouTubeEndPointRedirect/blob/master/MIT-LICENSE.txt
 		*
 		* MITライセンスについて
-		* http://wisdommingle.com/mit-license/
+		* https://wisdommingle.com/mit-license/
 		*/
 		
 		//**************************************************************************
@@ -35,7 +36,7 @@
 							var youtubeVideoID = "8Ayz1oxy6pY";
 							
 			//★リダイレクトさせる移動先のページのURLを設定する。
-							var redirectUrl = "http://commons.wikimedia.org/wiki/File:USMC-110917-M-VF198-019.jpg";
+							var redirectUrl = "https://commons.wikimedia.org/wiki/File:USMC-110917-M-VF198-019.jpg";
 		
 			//★リダイレクト先のページを新しいウィンドウ（新しいタブ）で開くか、
 			//  同じページ内で開くかを設定する
@@ -46,35 +47,28 @@
 	</script>
 	
 </head>
-<body>
+  <body>
+    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+    <div id="iframe_player_api"></div>
 
-<!-- この<div>タグは、下記のJavaScriptの働きによって、ページが表示される前に自動的に<iframe>タグ（動画プレーヤー）に置き換えられます。 -->
-<div id="iframe_player_api"></div>
-	
-	
-	<script type="text/javascript">
-		// YouTubeのウェブサイト上にある「IFrameプレーヤーAPI」のコードを
-		// 非同期的に読み込む。
-		var tag = document.createElement('script');
-		tag.src = "http://www.youtube.com/iframe_api";
-		var iframePlayerApiScriptTag = document.getElementsByTagName('script')[0];
-		iframePlayerApiScriptTag.parentNode.insertBefore(tag, iframePlayerApiScriptTag);
-		
-		// 「IFrameプレーヤーAPI」のコードが読み込まれた後、
-		// 「iframe_player_api」というIDがついている<div>タグが
-		// YouTube動画プレーヤーの<iframe>タグに置き換えられる。
-		var player;
-		function onYouTubePlayerAPIReady() {
-				//ここで指定しているID名（「iframe_player_api」）がついた
-				//<div>タグ（上記）は、ページが表示される前に
-				//自動的に<iframe>タグ（動画プレーヤー）に置き換えられます。
-				player = new YT.Player('iframe_player_api', {
-						//動画プレーヤーの横幅（width）と縦幅（height）
-						width: videoWidth,
-						height: videoHeight,
-						//表示させるYouTube動画の「動画ID」
-						videoId: youtubeVideoID,
-						//動画プレーヤーの設定をおこなう「パラメータ」
+    <script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('iframe_player_api', {
+          height: '360',
+          width: '640',
+          videoId: '8Ayz1oxy6pY',
+          
+          
 						playerVars: {
 								//左の値は「パラメータの名前」。
 								//右の値は「パラメータの値」。
@@ -85,20 +79,25 @@
 								'rel': 0
 								
 						},
-						//「イベントリスナー」
-						events: {
-								//左の値は「イベントリスナー」。
-								//右の値はそのイベントが発生した時に実行される関数。
-								'onReady': onPlayerReady,
-								'onStateChange': onPlayerStateChange
-						}
-				});
-		}
-		//動画を再生する準備が整ったときに実行される関数
-		function onPlayerReady(){
-					
-		}
-		//動画の再生状態が変わったときに実行される関数
+          
+          
+          
+          
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
 		function onPlayerStateChange(event){
 					
 					switch(event.data){
@@ -125,7 +124,6 @@
 								break;
 					}
 		}
-	</script>
-	
-</body>
+    </script>
+  </body>
 </html>
